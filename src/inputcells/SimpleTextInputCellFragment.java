@@ -36,7 +36,7 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 	}
 	
 	public void setIsPassword(boolean isPassword){
-		//test push new commits
+		//test push new commits 2
 		if(isPassword){
 			edit.setInputType(EditorInfo.TYPE_CLASS_TEXT|EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);	
 		}else{
