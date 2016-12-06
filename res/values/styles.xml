@@ -15,8 +15,11 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+<<<<<<< HEAD
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+=======
+>>>>>>> branch 'master' of https://github.com/DGUT-Asiasoft-2013/pratice_class2_zengsirui_201341404232.git
     </style>
 
 </resources>
