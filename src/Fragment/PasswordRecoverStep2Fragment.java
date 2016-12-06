@@ -14,7 +14,7 @@ View  view;
 @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		if(view==null){
+		if(view==null){//
 			view=inflater.inflate(R.layout.fragment_password_recover_step2,null);
 		}
 		return view;
