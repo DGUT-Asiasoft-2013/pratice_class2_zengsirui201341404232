@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:ordering="together" >
-<!-- 从左边边缘滑入屏幕中 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android" >
     <objectAnimator
         android:duration="@android:integer/config_shortAnimTime"
         android:propertyName="alpha"
@@ -12,7 +10,7 @@
     <objectAnimator
         android:duration="@android:integer/config_shortAnimTime"
         android:propertyName="x"
-        android:valueFrom="-160"
+        android:valueFrom="160"
         android:valueTo="0" >
     </objectAnimator>
 

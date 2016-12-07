@@ -1,4 +1,4 @@
-package Fragment;
+package Fragment.pages;
 
 import com.example.helloworld.R;
 
@@ -7,22 +7,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import inputcells.SimpleTextInputCellFragment;
 
-public class PasswordRecoverStep2Fragment extends Fragment {
+public class SearchPageFragment extends Fragment {
 	View view;
-	
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		
-		if(view==null){
-			view = inflater.inflate(R.layout.fragment_password_recover_step2, null);
+		if (view==null){
+			view = inflater.inflate(R.layout.fragment_page_search_page, null);
 		}
-		
+
 		return view;
 	}
-	
-	
 }
-

@@ -2,7 +2,6 @@ package inputcells;
 
 import com.example.helloworld.R;
 
-import Fragment.BaseInputCellFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
@@ -36,10 +35,6 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 	}
 	
 	public void setIsPassword(boolean isPassword){
-<<<<<<< HEAD
-		//test push new commits 2
-=======
->>>>>>> branch 'master' of https://github.com/DGUT-Asiasoft-2013/pratice_class2_zengsirui_201341404232.git
 		if(isPassword){
 			edit.setInputType(EditorInfo.TYPE_CLASS_TEXT|EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);	
 		}else{
