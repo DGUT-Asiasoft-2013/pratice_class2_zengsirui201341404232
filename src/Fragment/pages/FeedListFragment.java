@@ -19,12 +19,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class FeedListFragment extends Fragment {
-	
+
 	View view;
 	ListView listView;// 將listView取出來
 
 	String[] data;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (view == null) {
@@ -39,25 +39,24 @@ public class FeedListFragment extends Fragment {
 				}
 			});
 			listView.setAdapter(listAdapter);
-			
-			Random rand=new Random();
-			data=new String[10+rand.nextInt()%20];
-			
-			for(int i=0;i<data.length;i++){
-				data[i]="THIS IS ROW"+rand.nextInt();
+
+			Random rand = new Random();
+			data = new String[20 + rand.nextInt() % 20];
+
+			for (int i = 0; i < data.length; i++) {
+				data[i] = "THIS IS ROW" + rand.nextInt();
 			}
 		}
 		return view;
-		
-		
+
 	}
 
 	public void onfeedSelected(int position) {
-		String content=data[position];  //获得列表字符
-		Intent intent=new Intent(getActivity(), FeedContentActivity.class);//Fragment通过调用getActivity()方法来得到和碎片相关联的活动实例
-		//把字符传入intent里面去
+		String content = data[position]; // 获得列表字符
+		Intent intent = new Intent(getActivity(), FeedContentActivity.class);// Fragment通过调用getActivity()方法来得到和碎片相关联的活动实例
+		// 把字符传入intent里面去
 		intent.putExtra("cont", content);
-		
+
 		startActivity(intent);
 	}
 
@@ -74,7 +73,7 @@ public class FeedListFragment extends Fragment {
 			} else {
 				view = convertView;
 			}
-			
+
 			TextView text1 = (TextView) view.findViewById(android.R.id.text1);
 			text1.setText(data[position]);
 
@@ -96,7 +95,16 @@ public class FeedListFragment extends Fragment {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return data==null ? 0 :data.length;//若data为空时，返回0个，否则返回data.length个listview
+			return data == null ? 0 : data.length;// 若data为空时，返回0个，否则返回data.length个listview
 		}
 	};
+
+	void onItemClicked(int position) {
+		String text = data[position];
+
+		Intent itnt = new Intent(getActivity(), FeedContentActivity.class);
+		itnt.putExtra("text", text);
+
+		startActivity(itnt);
+	}
 }

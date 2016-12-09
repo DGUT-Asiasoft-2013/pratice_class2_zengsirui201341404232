@@ -8,7 +8,10 @@ import Fragment.pages.NoteListFragment;
 import Fragment.pages.SearchPageFragment;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import Fragment.MainTabbarFragment.OnNewClickedListener;
+
 
 //É»»›
 public class HelloWorldActivity extends Activity {
@@ -35,16 +38,22 @@ public class HelloWorldActivity extends Activity {
 			}
 		});
 
-	}
+		tabbar.setOnNewClickedListener(new OnNewClickedListener() {
 
+			public void onNewClicked() {
+				bringUpEditor();
+			}
+		});
+
+	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 
 		tabbar.setSelectedItem(0);
-}
-	
+	}
+
 	void changeContentFragment(int index) {
 		Fragment newFrag = null;
 
@@ -68,6 +77,12 @@ public class HelloWorldActivity extends Activity {
 			return;
 
 		getFragmentManager().beginTransaction().replace(R.id.content, newFrag).commit();
+	}
+
+	void bringUpEditor() {
+		Intent itnt = new Intent(HelloWorldActivity.this, MessagesSendingActivity.class);
+		startActivity(itnt);
+		overridePendingTransition(R.anim.slide_in_bottom, R.anim.none);
 	}
 
 }

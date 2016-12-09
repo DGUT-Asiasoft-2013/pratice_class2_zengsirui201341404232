@@ -1,5 +1,7 @@
 package inputcells;
 
+import java.io.ByteArrayOutputStream;
+
 import org.w3c.dom.Text;
 
 import com.example.helloworld.R;
@@ -91,6 +93,11 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 		itnt.setType("image/*");
 		startActivityForResult(itnt, REQUESTCODE_ALBUM);
 	}
+	
+//	void saveBitmap(Bitmap bmp){
+//		ByteArrayOutputStream baos=new ByteArrayOutputStream()
+//				
+//	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -118,4 +125,7 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	public void setHintText(String hintText){
 		this.hintText.setText(hintText);
 	}
+	
+	
+//	byte[] 
 }

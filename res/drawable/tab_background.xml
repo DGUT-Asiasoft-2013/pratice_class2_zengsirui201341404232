@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<!-- 设置选择 -->
-    <item android:state_selected="true"><shape android:shape="rectangle">
-            <solid android:color="#33ffffff" />
-        </shape></item>
+
+    <!-- 设置选择<solid android:color="#33ffffff" /> -->
+    <!-- selector是从上往下执行的 -->
+    <item android:drawable="@drawable/bg" android:state_selected="true"><shape android:shape="rectangle"></shape></item>
     <item android:drawable="@android:color/transparent"></item>
-<!-- item android:drawable="@android:color/transparent"></item> 未选择 -->
+    <!-- item android:drawable="@android:color/transparent"></item> 未选择 -->
+
 </selector>

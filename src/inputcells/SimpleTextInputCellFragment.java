@@ -30,6 +30,10 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 		label.setText(labelText);
 	}
 	
+	public String getText() {
+		return edit.getText().toString();
+	}
+	
 	public void setHintText(String hintText){
 		edit.setHint(hintText);
 	}
