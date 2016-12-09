@@ -2,6 +2,7 @@ package com.example.helloworld;
 
 import java.io.IOException;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.view.View;
 import android.widget.ProgressBar;
+import inputcells.PictureInputCellFragment;
 import inputcells.SimpleTextInputCellFragment;
 import okhttp3.*;
 
@@ -21,6 +23,10 @@ public class RegisterActivity extends Activity {
 	SimpleTextInputCellFragment fragInputCellPassword;
 	SimpleTextInputCellFragment fragInputCellPasswordRepeat;
 	SimpleTextInputCellFragment fragInputCellName;
+	
+	PictureInputCellFragment fragment_image;
+	
+	
 
 	ProgressDialog ProgressDialog;
 	@Override
@@ -36,6 +42,8 @@ public class RegisterActivity extends Activity {
 		fragInputCellPasswordRepeat = (SimpleTextInputCellFragment) getFragmentManager()
 				.findFragmentById(R.id.input_password_repeat);
 		fragInputCellName = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_name);
+		
+		fragment_image=(PictureInputCellFragment) getFragmentManager().findFragmentById(R.id.input_avatar);
 
 		findViewById(R.id.btn_submit).setOnClickListener(new View.OnClickListener() {
 
@@ -91,6 +99,8 @@ public class RegisterActivity extends Activity {
 
 			return;
 		}
+		
+	
 
 		String account = fragInputCellAccount.getText();
 		String name = fragInputCellName.getText();
@@ -104,7 +114,11 @@ public class RegisterActivity extends Activity {
 				.addFormDataPart("email", email)
 				.addFormDataPart("passwordHash", password);
 
-		
+	if (fragment_image.getPngData()!=null) {
+			requestBodyBuilder.addFormDataPart("avatar", "avatar",RequestBody.create(MediaType.parse("image/png")
+					, fragment_image.getPngData()));
+			
+		}
 		
 		Request request = new Request.Builder()
 				.url("http://172.27.0.18:8080/membercenter/api/register")
@@ -128,7 +142,7 @@ public class RegisterActivity extends Activity {
 					public void run() {
 						progressDialog.dismiss();
 						
-						RegisterActivity.this.onResponse(arg0, arg1);
+						RegisterActivity.this.onResponse(arg0, arg1.body().toString());
 					}
 				});
 			}
@@ -154,12 +168,12 @@ public class RegisterActivity extends Activity {
 				.setNegativeButton("好", null).show();
 	}
 
-	void onResponse(Call arg0, Response response) {
+	void onResponse(Call arg0, String response) {
 		try {
-			new AlertDialog.Builder(this).setTitle("请求成功").setMessage(response.body().string())
+			new AlertDialog.Builder(this).setTitle("请求成功").setMessage("您的请求成功")
 			.setNegativeButton("确定", null)
 			.show();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			onFailure(arg0, e);

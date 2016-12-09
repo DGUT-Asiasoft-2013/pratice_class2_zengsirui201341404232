@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
@@ -35,7 +36,12 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	ImageView imageView;
 	TextView labelText;
 	TextView hintText;
-
+	
+	byte[] pngData;
+	
+	public byte[] getPngData(){
+		return pngData;
+	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_inputcell_picture, container);
@@ -94,10 +100,12 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 		startActivityForResult(itnt, REQUESTCODE_ALBUM);
 	}
 	
-//	void saveBitmap(Bitmap bmp){
-//		ByteArrayOutputStream baos=new ByteArrayOutputStream()
-//				
-//	}
+	void saveBitmap(Bitmap bmp){
+		ByteArrayOutputStream baos=new ByteArrayOutputStream();
+		bmp.compress(CompressFormat.PNG,100, baos);
+		pngData=baos.toByteArray();
+				
+	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -107,11 +115,15 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 
 			Bitmap bmp = (Bitmap)data.getExtras().get("data");
 			imageView.setImageBitmap(bmp);
+			
+			saveBitmap(bmp);
 		}else if(requestCode == REQUESTCODE_ALBUM){
 			
 			try {
 				Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
 				imageView.setImageBitmap(bmp);
+				
+				saveBitmap(bmp);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
