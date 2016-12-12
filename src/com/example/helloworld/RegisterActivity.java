@@ -2,6 +2,7 @@ package com.example.helloworld;
 
 import java.io.IOException;
 
+import com.example.helloworld.entity.Server;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -106,8 +107,8 @@ public class RegisterActivity extends Activity {
 		String name = fragInputCellName.getText();
 		String email = fragInputEmailAddress.getText();
 
-		OkHttpClient client = new OkHttpClient();
-
+//		OkHttpClient client = new OkHttpClient();
+OkHttpClient client=Server.getOkHttpClient();
 		MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
 				.addFormDataPart("account", account)
 				.addFormDataPart("name", name)
@@ -120,12 +121,13 @@ public class RegisterActivity extends Activity {
 			
 		}
 		
-		Request request = new Request.Builder()
-				.url("http://172.27.0.18:8080/membercenter/api/register")
-				.method("post", null)
-				.post(requestBodyBuilder.build())
-				.build();
+//		Request request = new Request.Builder()
+//				.url("http://172.27.0.18:8080/membercenter/api/register")
+//				.method("post", null)
+//				.post(requestBodyBuilder.build())
+//				.build();
 
+	Request request=Server.requestuildApi("register").method("post", null).post(requestBodyBuilder.build()).build();
 		final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
 		progressDialog.setMessage("«Î…‘∫Û");
 		progressDialog.setCancelable(false);

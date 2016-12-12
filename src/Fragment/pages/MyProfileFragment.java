@@ -67,8 +67,8 @@ public class MyProfileFragment extends Fragment {
 						ObjectMapper objectMapper=new ObjectMapper();
 						try {
 							user = objectMapper.readValue(arg1.body().string(), User.class);
-							tv.setText("wwnwnnwnwnw");
-							//tv.setText(user.getName()+","+user.getAccount());
+//							tv.setText("wwnwnnwnwnw");
+							tv.setText(user.getName()+","+user.getAccount());
 						} catch (JsonParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

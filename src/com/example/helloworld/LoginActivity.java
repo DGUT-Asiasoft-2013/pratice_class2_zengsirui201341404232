@@ -2,6 +2,7 @@ package com.example.helloworld;
 
 import java.io.IOException;
 
+import com.example.helloworld.entity.Server;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -81,19 +82,24 @@ public class LoginActivity extends Activity {
 		
 		
 		
-		OkHttpClient client = new OkHttpClient();
+//		OkHttpClient client = new OkHttpClient();
 
 		MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
 				.addFormDataPart("account", current_user)
 				.addFormDataPart("passwordHash", current_password);
 		
-		Request request = new Request.Builder()
-				.url("http://172.27.0.18:8080/membercenter/api/login")
-				.method("post", null)
-				.post(requestBodyBuilder.build())
-				.build();
+//		Request request = new Request.Builder()
+//				.url("http://172.27.0.18:8080/membercenter/api/login")
+//				.method("post", null)
+//				.post(requestBodyBuilder.build())
+//				.build();
 		
-		
+		OkHttpClient client=Server.getOkHttpClient();
+	      //创建一个Request，获取url,method参数
+	        Request request=Server.requestuildApi("login")
+	        		.method("post", null)
+	        		.post(requestBodyBuilder.build())
+	        		.build();//向服务器请求打开URL
 	
 		final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
 		progressDialog.setMessage("请稍后");

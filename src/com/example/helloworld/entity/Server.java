@@ -30,7 +30,7 @@ public class Server {
 	 */
 	public static Request.Builder requestuildApi(String api)
 	{
-		return new Request.Builder().url("http://172.27.0.18:8080/membercenter/api/"+api);
+		return new Request.Builder().url("http://172.27.0.34:8080/membercenter/api/"+api);
 		
 	}
 }
