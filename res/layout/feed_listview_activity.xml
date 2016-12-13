@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:minHeight="100dp"
+    android:padding="8dp" >
 
-    <TextView
-        android:id="@+id/feed_liatview_textView"
-        android:textSize="16dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="160dp"
-        android:textColor="@android:color/holo_blue_bright"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_height="match_parent" >
+
+        <com.example.helloworld.view.AvatarView
+            android:id="@+id/avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/avatar"
+            android:layout_centerHorizontal="true"
+            android:text="name"
+            android:textColor="@android:color/darker_gray" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         />
+        android:layout_marginLeft="68dp" >
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:text="Title"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+            android:textSize="12sp"
+            android:text="Create Date"
+            android:layout_gravity="right"
+            android:textColor="#aaa" />
+        
+        <TextView
+            android:id="@+id/text"
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Content Text" />
+    </FrameLayout>
+
+</FrameLayout>

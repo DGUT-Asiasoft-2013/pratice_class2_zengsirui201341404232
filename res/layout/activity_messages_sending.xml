@@ -9,11 +9,12 @@
         android:layout_height="wrap_content"
         android:weightSum="5" >
 
-        <TextView
+        <EditText
+            android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:text="信息" 
+            android:hint="标题" 
             android:gravity="center"
             android:textSize="25dp"/>
 

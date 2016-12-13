@@ -16,15 +16,15 @@
             android:text="FEEDS"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
-
+ <!-- 分割线 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="bottom"
             android:background="@android:color/darker_gray" />
-        <!-- 分割线 -->
+       
     </FrameLayout>
-
+<!-- 列表 -->
     <ListView
         
         android:id="@+id/list"

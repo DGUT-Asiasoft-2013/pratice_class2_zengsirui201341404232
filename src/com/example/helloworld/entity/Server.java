@@ -9,6 +9,7 @@ import okhttp3.Request;
 
 public class Server {
 	static OkHttpClient okHttpClient;
+	public static String serverAddress="http://172.27.0.34:8080/membercenter/api/";
 	
 	static
 	{
@@ -30,7 +31,8 @@ public class Server {
 	 */
 	public static Request.Builder requestuildApi(String api)
 	{
-		return new Request.Builder().url("http://172.27.0.34:8080/membercenter/api/"+api);
+		
+		return new Request.Builder().url(serverAddress+api);
 		
 	}
 }

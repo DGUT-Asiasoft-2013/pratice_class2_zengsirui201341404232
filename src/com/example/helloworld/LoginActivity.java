@@ -121,6 +121,7 @@ public class LoginActivity extends Activity {
 						User user;
 						progressDialog.dismiss();
 						try {
+							Toast.makeText(LoginActivity.this, "进来了", Toast.LENGTH_SHORT).show();
 							ObjectMapper objectMapper=new ObjectMapper();
 							user=objectMapper.readValue(arg1.body().string(), User.class);
 							new AlertDialog.Builder(LoginActivity.this).setTitle("成功")

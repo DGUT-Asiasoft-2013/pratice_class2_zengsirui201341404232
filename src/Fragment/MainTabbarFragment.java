@@ -68,6 +68,9 @@ public class MainTabbarFragment extends Fragment {
 		}
 	}
 	
+	public int getSelectedItem(){
+		return tabs.length;
+	}
 	void onTabClicked(View tab){
 		int selectedIndex = -1;
 		

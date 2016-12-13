@@ -1,6 +1,7 @@
 package com.example.helloworld;
 
 import Fragment.MainTabbarFragment;
+import Fragment.MainTabbarFragment.OnNewClickedListener;
 import Fragment.MainTabbarFragment.OnTabSelectedListener;
 import Fragment.pages.FeedListFragment;
 import Fragment.pages.MyProfileFragment;
@@ -10,7 +11,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import Fragment.MainTabbarFragment.OnNewClickedListener;
 
 
 //É»»›
@@ -51,7 +51,9 @@ public class HelloWorldActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
+		if(tabbar.getSelectedItem()<0){
 		tabbar.setSelectedItem(0);
+		}
 	}
 
 	void changeContentFragment(int index) {
