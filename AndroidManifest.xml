@@ -28,6 +28,7 @@
         <activity android:name=".PasswordRecoverActivity"></activity>
         <activity android:name="com.example.helloworld.FeedContentActivity"></activity>
     <activity android:name="MessagesSendingActivity"></activity>
+    <activity android:name="com.example.helloworld.CommentContentActivity"></activity>
     </application>
 
 </manifest>

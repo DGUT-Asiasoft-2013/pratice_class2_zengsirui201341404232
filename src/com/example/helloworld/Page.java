@@ -21,4 +21,7 @@ public class Page<Article> {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
+	
+	
+	
 }

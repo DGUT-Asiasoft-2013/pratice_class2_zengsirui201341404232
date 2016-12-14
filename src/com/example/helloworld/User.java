@@ -1,7 +1,8 @@
 package com.example.helloworld;
 
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable{
 	String account;
 	String passwordHash;
 	String name;

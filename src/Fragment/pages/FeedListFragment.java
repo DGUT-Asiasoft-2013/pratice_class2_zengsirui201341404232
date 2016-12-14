@@ -154,8 +154,9 @@ public class FeedListFragment extends Fragment {
 
 		String text = article.getAuthorName() + ":" + article.getText();
 		Intent itnt = new Intent(getActivity(), FeedContentActivity.class);
-		itnt.putExtra("text", text);
+//		itnt.putExtra("text", text);
 
+		itnt.putExtra("data", article);
 		startActivity(itnt);
 	}
 

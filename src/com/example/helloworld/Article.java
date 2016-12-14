@@ -1,9 +1,10 @@
 package com.example.helloworld;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class Article {
+public class Article implements Serializable{
 	User author;// 文章作者
 	Date createDate;// 文章创建时间
 	Date editDate;// 文章编辑时间
