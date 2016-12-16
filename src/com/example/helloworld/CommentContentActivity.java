@@ -48,7 +48,7 @@ public class CommentContentActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feed_comment);
 		
-		listView = (ListView)findViewById(R.id.comment_list);
+/*		listView = (ListView)findViewById(R.id.comment_list);
 		
 		listView.setAdapter(listAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -58,7 +58,7 @@ public class CommentContentActivity extends Activity{
 				onItemClicked(position);
 				
 			}
-		});
+		});*/
 		
 		edit=(EditText) findViewById(R.id.edit);
 		
@@ -74,7 +74,7 @@ public class CommentContentActivity extends Activity{
 		});
 	}
 	
-	@Override
+/*	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
@@ -134,8 +134,8 @@ public class CommentContentActivity extends Activity{
 			
 		}
 	});
-	}
-
+	}*/
+/*
 	protected void onItemClicked(int position) {
 		Comment comment = data.get(position);
 
@@ -145,9 +145,9 @@ public class CommentContentActivity extends Activity{
 
 		itnt.putExtra("data", comment);
 		startActivity(itnt);
-	}
+	}*/
 
-	BaseAdapter listAdapter=new BaseAdapter() {
+	/*BaseAdapter listAdapter=new BaseAdapter() {
 		
 		@SuppressLint("InflateParams")
 		@Override
@@ -194,7 +194,7 @@ public class CommentContentActivity extends Activity{
 			// TODO Auto-generated method stub
 			return data == null ? 0 : data.size();// 若data为空时，返回0个，否则返回data.length个listview
 		}
-	};
+	};*/
 
 	protected void sendContent() {
 		String text=edit.getText().toString();

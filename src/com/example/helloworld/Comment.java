@@ -45,7 +45,7 @@ public class Comment implements Serializable {
 		this.text = text;
 	}
 
-	public User getAuthor() {
+	public User getAuthor() {//ÆÀÂÛµÄÈË
 		return author;
 	}
 

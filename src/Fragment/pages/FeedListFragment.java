@@ -8,14 +8,17 @@ import java.util.Random;
 
 import com.example.helloworld.Article;
 import com.example.helloworld.FeedContentActivity;
+import com.example.helloworld.LoginActivity;
 import com.example.helloworld.Page;
 import com.example.helloworld.R;
+import com.example.helloworld.R.id;
 import com.example.helloworld.entity.Server;
 import com.example.helloworld.view.AvatarView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
@@ -23,14 +26,18 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -40,9 +47,14 @@ public class FeedListFragment extends Fragment {
 	View view;
 	ListView listView;// 將listView取出來
 
+	View btnLoadMore;
+	TextView textLoadMore;
+	
+	Article article;
 	List<Article> data = new ArrayList<Article>();
 	int page = 0;
-	// String[] data;
+
+	private EditText search_ed;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +64,7 @@ public class FeedListFragment extends Fragment {
 			listView = (ListView) view.findViewById(R.id.list);
 
 			listView.setAdapter(listAdapter);
+			search_ed=(EditText) view.findViewById(R.id.search_content);
 
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -60,17 +73,139 @@ public class FeedListFragment extends Fragment {
 					onItemClicked(position);
 				}
 			});
-			// listView.setAdapter(listAdapter);
+			
+			//Button feeds_search=(Button) getActivity().findViewById(R.id.btn_search);
 
-			// Random rand = new Random();
-			// data = new String[20 + rand.nextInt() % 20];
-			//
-			// for (int i = 0; i < data.length; i++) {
-			// data[i] = "THIS IS ROW" + rand.nextInt();
-			// }
+			view.findViewById(R.id.btn_search).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					goSearch(search_ed.getText().toString());
+					
+				}
+			});
+			
+			btnLoadMore=inflater.inflate(R.layout.widget_load_more_button, null);
+			textLoadMore=(TextView) btnLoadMore.findViewById(R.id.text);
+		
+			listView.addFooterView(btnLoadMore);
+			
+			btnLoadMore.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					loadmore();
+					
+				}
+			});
 		}
 		return view;
 
+	}
+
+	protected void loadmore() {
+		btnLoadMore.setEnabled(false);
+		textLoadMore.setText("载入中…");
+		
+		Request request = Server.requestuildApi("feeds/"+(page+1)).get().build();
+		Server.getOkHttpClient().newCall(request).enqueue(new Callback() {
+			@Override
+			public void onResponse(Call arg0, Response arg1) throws IOException {
+				getActivity().runOnUiThread(new Runnable() {
+					public void run() {
+						btnLoadMore.setEnabled(true);
+						textLoadMore.setText("加载更多");
+					}
+				});
+				
+				try{
+					final Page<Article> feeds = new ObjectMapper().readValue(arg1.body().string(), new TypeReference<Page<Article>>() {});
+					if(feeds.getNumber()>page){
+						
+						getActivity().runOnUiThread(new Runnable() {
+							public void run() {
+								if(data==null){
+									data = feeds.getContent();
+								}else{
+									data.addAll(feeds.getContent());
+								}
+								page = feeds.getNumber();
+								
+								listAdapter.notifyDataSetChanged();
+							}
+						});
+					}
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void onFailure(Call arg0, IOException arg1) {
+				getActivity().runOnUiThread(new Runnable() {
+					public void run() {
+						btnLoadMore.setEnabled(true);
+						textLoadMore.setText("加载更多1");
+					}
+				});
+			}
+		});
+}
+
+	protected void goSearch(String keyword) {
+		
+		Request request=Server.requestuildApi("article/s/"+keyword).build();//
+		
+		Server.getOkHttpClient().newCall(request).enqueue(new Callback() {
+			
+			@Override
+			public void onResponse(Call arg0, Response arg1) throws IOException {
+				final String string=arg1.body().string();
+				try {
+					Article article;
+					Page<Article> pageArticle;
+					ObjectMapper objectMapper=new ObjectMapper();
+					//把解析下来的数据的页数传给page
+					pageArticle=objectMapper.readValue(string, new TypeReference<Page<Article>>() {
+					});
+					//内容传给内容
+					FeedListFragment.this.page=pageArticle.getNumber();
+					data=pageArticle.getContent();
+					
+					getActivity().runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							// 刷新
+							listAdapter.notifyDataSetInvalidated();
+
+						}
+					});
+				} catch (final Exception e) {
+					getActivity().runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							new AlertDialog.Builder(getActivity()).setTitle("失败11").setMessage(e.toString()).show();
+						}
+					});
+				}
+			}
+			
+			@Override
+			public void onFailure(Call arg0, IOException arg1) {
+				getActivity().runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						new AlertDialog.Builder(getActivity()).setTitle("失败").setMessage("连接失败")
+						.setNegativeButton("确定",null)
+						.show();
+					}
+				});
+				
+			}
+		});
 	}
 
 	@Override
@@ -193,6 +328,7 @@ public class FeedListFragment extends Fragment {
 						}
 					});
 				} catch (final Exception e) {
+					
 					getActivity().runOnUiThread(new Runnable() {
 
 						@Override
